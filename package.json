@@ -3,7 +3,14 @@
   "version": "1.0.3",
   "description": "Type Safe DynamoDB Objects in TypeScript.",
   "main": "index.js",
-  "repository": "git@github.com:yspreen/dynamo-objects.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yspreen/dynamo-objects"
+  },
+  "bugs": {
+    "url": "https://github.com/yspreen/dynamo-objects/issues"
+  },
+  "homepage": "https://github.com/yspreen/dynamo-objects",
   "author": "Nick Spreen <npm-author@spreen.co>",
   "license": "MIT",
   "private": false,
