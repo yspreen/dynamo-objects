@@ -10,7 +10,7 @@ import {
   sharedDynamoClient,
 } from "./dynamoObject";
 
-export async function putItem<T extends DynamoObject<T>>(object: T) {
+export async function putObject<T extends DynamoObject<T>>(object: T) {
   return sharedDynamoClient.get().send(
     new PutCommand({
       TableName: getMeta(object).tableName,
@@ -19,7 +19,7 @@ export async function putItem<T extends DynamoObject<T>>(object: T) {
   );
 }
 
-export async function deleteItem<T extends DynamoObject<T>>(object: T) {
+export async function deleteObject<T extends DynamoObject<T>>(object: T) {
   const {
     tableName: TableName,
     partitionKey: partitionKeyName,
@@ -40,7 +40,7 @@ export async function deleteItem<T extends DynamoObject<T>>(object: T) {
 
 /// This will perform a partial update. Only setting the keys that are present.
 /// Works with all keys regardless of being in the schema as attributes or not.
-export async function updateItem<T extends DynamoObject<T>>(
+export async function updateObject<T extends DynamoObject<T>>(
   object: T,
   keyFilter?: (keyof T)[]
 ) {
@@ -87,7 +87,7 @@ export async function updateItem<T extends DynamoObject<T>>(
 }
 
 /// This method will increment a key atomically even if it's not part of the schema.
-export async function incrementItem<
+export async function incrementObject<
   T extends DynamoObject<T>,
   K extends keyof T
 >(

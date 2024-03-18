@@ -5,18 +5,18 @@ export type NoSort = { _meta: { sortKey?: never } };
 export type WithSort<T> = { _meta: { sortKey: Exclude<keyof T, "_meta"> } };
 export type IdxWithSort<T> = { sortKey: Exclude<keyof T, "_meta"> };
 
-export async function getItem<T extends DynamoObject<T>>(
+export async function getObject<T extends DynamoObject<T>>(
   DynamoClass: new () => T & NoSort,
   partitionKey: string
 ): Promise<T | undefined>;
 
-export async function getItem<T extends DynamoObject<T>>(
+export async function getObject<T extends DynamoObject<T>>(
   DynamoClass: new () => T & WithSort<T>,
   partitionKey: string,
   sortKey: string
 ): Promise<T | undefined>;
 
-export async function getItem<T extends DynamoObject<T>>(
+export async function getObject<T extends DynamoObject<T>>(
   DynamoClass: new () => T,
   partitionKey: string,
   sortKey?: string
@@ -53,7 +53,7 @@ type QueryProps = {
   limit?: number;
 };
 
-export async function getItems<
+export async function getObjects<
   T extends DynamoObject<T>,
   I extends keyof T["_meta"]["indexes"]
 >(
@@ -66,11 +66,11 @@ export async function getItems<
     limit?: number;
   }
 ): Promise<{
-  items: T[];
+  objects: T[];
   nextPage: string | null;
 }>;
 
-export async function getItems<
+export async function getObjects<
   T extends DynamoObject<T>,
   I extends keyof T["_meta"]["indexes"]
 >(
@@ -84,11 +84,11 @@ export async function getItems<
     limit?: number;
   }
 ): Promise<{
-  items: T[];
+  objects: T[];
   nextPage: string | null;
 }>;
 
-export async function getItems<
+export async function getObjects<
   T extends DynamoObject<T>,
   I extends keyof T["_meta"]["indexes"]
 >(
@@ -101,11 +101,11 @@ export async function getItems<
     limit?: number;
   }
 ): Promise<{
-  items: T[];
+  objects: T[];
   nextPage: string | null;
 }>;
 
-export async function getItems<
+export async function getObjects<
   T extends DynamoObject<T>,
   I extends keyof T["_meta"]["indexes"]
 >(
@@ -117,16 +117,16 @@ export async function getItems<
     limit?: number;
   }
 ): Promise<{
-  items: T[];
+  objects: T[];
   nextPage: string | null;
 }>;
 
-export async function getItems<T extends DynamoObject<T>>(
+export async function getObjects<T extends DynamoObject<T>>(
   DynamoClass: new () => T,
   propsOrIdx: string | QueryProps,
   props?: string | QueryProps
 ): Promise<{
-  items: T[];
+  objects: T[];
   nextPage: string | null;
 }> {
   return runQuery(DynamoClass, propsOrIdx, props);
@@ -137,7 +137,7 @@ async function runQuery<T extends DynamoObject<T>>(
   propsOrIdx: string | QueryProps,
   props?: string | QueryProps
 ): Promise<{
-  items: T[];
+  objects: T[];
   nextPage: string | null;
 }> {
   let ExclusiveStartKey: Record<string, any> | undefined;
@@ -211,17 +211,17 @@ async function runQuery<T extends DynamoObject<T>>(
 
   if (!result.Items?.length)
     return {
-      items: [],
+      objects: [],
       nextPage,
     };
 
   return {
-    items: result.Items.map((item) => ({ _meta, ...item } as T)),
+    objects: result.Items.map((item) => ({ _meta, ...item } as T)),
     nextPage: resultNextPageKey,
   };
 }
 
-export async function getAllItems<T extends DynamoObject<T>>(
+export async function getAllobjects<T extends DynamoObject<T>>(
   DynamoClass: new () => T & WithSort<T>,
   args: {
     partitionKey: string;
@@ -230,7 +230,7 @@ export async function getAllItems<T extends DynamoObject<T>>(
   }
 ): Promise<T[]>;
 
-export async function getAllItems<T extends DynamoObject<T>>(
+export async function getAllobjects<T extends DynamoObject<T>>(
   DynamoClass: new () => T & NoSort,
   args: {
     partitionKey: string;
@@ -238,7 +238,7 @@ export async function getAllItems<T extends DynamoObject<T>>(
   }
 ): Promise<T[]>;
 
-export async function getAllItems<T extends DynamoObject<T>>(
+export async function getAllobjects<T extends DynamoObject<T>>(
   DynamoClass: new () => T,
   args: {
     partitionKey: string;
@@ -247,16 +247,16 @@ export async function getAllItems<T extends DynamoObject<T>>(
   }
 ): Promise<T[]> {
   let nextPage: string | null = null;
-  const allItems: T[] = [];
+  const allobjects: T[] = [];
 
   do {
     const result: {
-      items: T[];
+      objects: T[];
       nextPage: string | null;
     } = await runQuery(DynamoClass, { nextPage, ...args });
     nextPage = result.nextPage;
-    allItems.push(...result.items);
+    allobjects.push(...result.objects);
   } while (nextPage);
 
-  return allItems;
+  return allobjects;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@spreen/dynamo-objects",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Type Safe DynamoDB Objects in TypeScript.",
   "main": "index.js",
   "repository": "git@github.com:yspreen/dynamo-objects.git",
