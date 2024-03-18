@@ -1,15 +1,17 @@
 {
   "name": "@spreen/dynamo-objects",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Type Safe DynamoDB Objects in TypeScript.",
   "main": "index.js",
   "repository": "git@github.com:yspreen/dynamo-objects.git",
   "author": "Nick Spreen <npm-author@spreen.co>",
   "license": "MIT",
   "private": false,
-  "devDependencies": {
+  "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.535.0",
-    "@aws-sdk/lib-dynamodb": "^3.535.0",
+    "@aws-sdk/lib-dynamodb": "^3.535.0"
+  },
+  "devDependencies": {
     "typescript": "^5.4.2"
   }
 }
