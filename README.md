@@ -2,9 +2,12 @@
 
 ## Type Safe DynamoDB Objects in TypeScript
 
+> ⚠️ **If you are using Express**: Add the `cleanJsonMiddleware` to remove \_meta fields from your responses: `app.use(cleanJsonMiddleware)`
+
 Example usage:
 
-```tsimport {
+```ts
+import {
   DynamoObject,
   ensureTable,
   getMeta,

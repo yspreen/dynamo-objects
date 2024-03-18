@@ -19,6 +19,7 @@
     "@aws-sdk/lib-dynamodb": "^3.535.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "typescript": "^5.4.2"
   }
 }
