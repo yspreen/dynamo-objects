@@ -4,8 +4,7 @@
 
 Example usage:
 
-```ts
-import {
+```tsimport {
   DynamoObject,
   ensureTable,
   getMeta,
@@ -13,6 +12,7 @@ import {
   getObjects,
   incrementObject,
   putObject,
+  sharedDynamoClient,
   updateObject,
 } from "@spreen/dynamo-objects";
 import { randomUUID } from "crypto";
@@ -75,6 +75,10 @@ class Message extends DynamoObject<Message> {
 }
 
 (async () => {
+  sharedDynamoClient.initialize();
+  /// Or:
+  // sharedDynamoClient.set(/* your DynamoDBDocumentClient here */);
+
   await ensureTable(User);
   await ensureTable(Message);
 
