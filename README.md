@@ -4,6 +4,8 @@
 
 > ⚠️ **If you are using Express**: Add the `cleanJsonMiddleware` to remove \_meta fields from your responses: `app.use(cleanJsonMiddleware)`
 
+For the full documentation, please see [Documentation.md](https://github.com/yspreen/dynamo-objects/blob/main/Documentation.md)
+
 Example usage:
 
 ```ts
